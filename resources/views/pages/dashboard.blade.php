@@ -234,11 +234,15 @@
             <h3 class="text-lg font-semibold" id="categoryPopupTitle">Add New Category</h3>
             <button onclick="closeCategoryPopup()" class="text-white hover:text-gray-200">&times;</button>
         </div>
-        <form id="categoryForm" action="{{ route('categories.store') }}" method="POST" class="p-4">
+        <form id="categoryForm" action="{{ route('categories.store') }}" method="POST" class="p-4" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label for="categoryName" class="block text-gray-700 font-bold mb-2">Category Name</label>
                 <input type="text" id="categoryName" name="name" class="w-full px-3 py-2 border rounded-md" required>
+            </div>
+            <div class="mb-4">
+                <label for="images" class="block text-gray-700 font-bold mb-2">Images</label>
+                <input type="file" id="images" name="images[]" class="w-full px-3 py-2 border rounded-md" multiple>
             </div>
             <div class="flex justify-end">
                 <button type="button" onclick="closeCategoryPopup()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-400 transition duration-200">Cancel</button>
@@ -247,6 +251,7 @@
         </form>
     </div>
 </dialog>
+
 
     <!-- Edit Category Popup -->
     <dialog id="editcategory" class="rounded-lg shadow-xl p-0 w-full max-w-md">
