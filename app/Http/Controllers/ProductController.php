@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -54,15 +57,28 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all(); 
+
+        return view('products.edit', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update($request->validated());
+
+        if ($request->hasFile('images')) {
+            $product->images()->delete();
+
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images', 'public');
+                $product->images()->create(['path' => $path]);
+            }
+        }
+
+        return redirect()->back()->withInput()->with('success', 'Flower updated successfully.');
     }
 
     /**
@@ -70,7 +86,18 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->back()->withInput()->with('success', 'Flower deleted successfully.');
+        try {
+            foreach ($product->images as $image) {
+                Storage::disk('public')->delete($image->path);
+                $image->delete();
+            }
+
+            $product->delete();
+
+            return redirect()->back()->with('success', 'pro$product and associated images deleted successfully.');
+        } catch (\Exception $e) {
+            Log::error('Error deleting pro$product: ' . $e->getMessage());
+            return redirect()->back()->withErrors('An error occurred while deleting the pro$product. Please try again.');
+        }
     }
 }

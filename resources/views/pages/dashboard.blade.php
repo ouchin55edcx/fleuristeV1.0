@@ -120,6 +120,68 @@
                                             </form>
                                         </td>
                                     </tr>
+
+
+                                    <!-- Edit Flower Popup -->
+                                    <dialog id="editflower" class="rounded-lg shadow-xl p-0 w-full max-w-md">
+                                        <div class="bg-white rounded-lg overflow-hidden">
+                                            <div
+                                                class="bg-green-600 text-white px-4 py-2 flex justify-between items-center">
+                                                <h3 class="text-lg font-semibold" id="flowerPopupTitle">Edit Flower</h3>
+                                                <button onclick="closeFlowerPopup()"
+                                                    class="text-white hover:text-gray-200">&times;</button>
+                                            </div>
+                                            <form id="flowerEditForm" action="{{ route('products.update', $flower->id) }}"
+                                                method="POST" class="p-4" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="mb-4">
+                                                    <label for="flowerName"
+                                                        class="block text-gray-700 font-bold mb-2">Name</label>
+                                                    <input type="text" id="flowerName" name="name"
+                                                        class="w-full px-3 py-2 border rounded-md"
+                                                        value="{{ $flower->name }}" required>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label for="flowerCategory"
+                                                        class="block text-gray-700 font-bold mb-2">Category</label>
+                                                    <select id="flowerCategory" name="category_id"
+                                                        class="w-full px-3 py-2 border rounded-md" required>
+                                                        <option value="">Select a category</option>
+                                                        @foreach ($categories as $category)
+                                                            <option value="{{ $category->id }}"
+                                                                @if ($flower->category_id == $category->id) selected @endif>
+                                                                {{ $category->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label for="flowerPrice"
+                                                        class="block text-gray-700 font-bold mb-2">Price</label>
+                                                    <input type="number" id="flowerPrice" name="price" step="0.01"
+                                                        class="w-full px-3 py-2 border rounded-md"
+                                                        value="{{ $flower->price }}" required>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label for="flowerDescription"
+                                                        class="block text-gray-700 font-bold mb-2">Description</label>
+                                                    <textarea id="flowerDescription" name="description" class="w-full px-3 py-2 border rounded-md">{{ $flower->description }}</textarea>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label for="flowerImages"
+                                                        class="block text-gray-700 font-bold mb-2">Images</label>
+                                                    <input type="file" id="flowerImages" name="images[]"
+                                                        class="w-full px-3 py-2 border rounded-md" multiple>
+                                                </div>
+                                                <div class="flex justify-end">
+                                                    <button type="button" onclick="closeFlowerPopup()"
+                                                        class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-400 transition duration-200">Cancel</button>
+                                                    <button type="submit"
+                                                        class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </dialog>
                                 @endforeach
                             </tbody>
                         </table>
@@ -148,7 +210,7 @@
                                 @foreach ($categories as $category)
                                     <tr class="border-b">
                                         <td class="py-3 px-4">{{ $category->name }}</td>
-                                        <td class="py-3 px-4">{{ $category->flowers_count }}</td>
+                                        <td class="py-3 px-4">{{ $category->products_count}}</td>
                                         <td class="py-3 px-4">
                                             <button onclick="openEditCategoryPopup({{ $category->id }})"
                                                 class="text-blue-600 hover:text-blue-800 mr-2"><i
@@ -259,39 +321,7 @@
         </dialog>
 
 
-        <!-- Edit Flower Popup -->
-        <dialog id="editflower" class="rounded-lg shadow-xl p-0 w-full max-w-md">
-            <div class="bg-white rounded-lg overflow-hidden">
-                <div class="bg-green-600 text-white px-4 py-2 flex justify-between items-center">
-                    <h3 class="text-lg font-semibold" id="flowerPopupTitle">Add New Flower</h3>
-                    <button onclick="closeFlowerPopup()" class="text-white hover:text-gray-200">&times;</button>
-                </div>
-                <form id="flowerForm" class="p-4">
-                    <div class="mb-4">
-                        <label for="flowerName" class="block text-gray-700 font-bold mb-2">Name</label>
-                        <input type="text" id="flowerName" name="name" class="w-full px-3 py-2 border rounded-md"
-                            required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="flowerCategory" class="block text-gray-700 font-bold mb-2">Category</label>
-                        <select id="flowerCategory" name="category" class="w-full px-3 py-2 border rounded-md" required>
-                            <option value="">Select a category</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="flowerPrice" class="block text-gray-700 font-bold mb-2">Price</label>
-                        <input type="number" id="flowerPrice" name="price" step="0.01"
-                            class="w-full px-3 py-2 border rounded-md" required>
-                    </div>
-                    <div class="flex justify-end">
-                        <button type="button" onclick="closeFlowerPopup()"
-                            class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-400 transition duration-200">Cancel</button>
-                        <button type="submit"
-                            class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200">Save</button>
-                    </div>
-                </form>
-            </div>
-        </dialog>
+
 
         <!-- Add Category Popup -->
         <dialog id="categoryPopup" class="rounded-lg shadow-xl p-0 w-full max-w-md">
