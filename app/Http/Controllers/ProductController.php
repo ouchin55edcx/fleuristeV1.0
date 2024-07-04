@@ -29,7 +29,15 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        Product::create($request->validated());
+        $product = Product::create($request->validated());
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images', 'public');
+                $product->images()->create(['path' => $path]);
+            }
+        }
+
         return redirect()->back()->withInput()->with('success', 'Flower added successfully.');
     }
 
@@ -62,6 +70,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->back()->withInput()->with('success', 'Flower deleted successfully.');
     }
 }
