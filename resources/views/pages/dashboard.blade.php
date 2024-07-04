@@ -100,18 +100,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border-b">
-                                    <td class="py-3 px-4">Elegant Rose Bouquet</td>
-                                    <td class="py-3 px-4">Roses</td>
-                                    <td class="py-3 px-4">$49.99</td>
-                                    <td class="py-3 px-4">
-                                        <button onclick="openEditFlowerPopup()"
-                                            class="text-blue-600 hover:text-blue-800 mr-2"><i
-                                                class="fas fa-edit"></i></button>
-                                        <button class="text-red-600 hover:text-red-800"><i
-                                                class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                @foreach ($flowers as $flower)
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4">{{ $flower->name }}</td>
+                                        <td class="py-3 px-4">{{ $flower->category->name }}</td>
+                                        <td class="py-3 px-4">${{ number_format($flower->price, 2) }}</td>
+                                        <td class="py-3 px-4">
+                                            <button onclick="openEditFlowerPopup({{ $flower->id }})"
+                                                class="text-blue-600 hover:text-blue-800 mr-2"><i
+                                                    class="fas fa-edit"></i></button>
+                                            <form action="{{ route('products.destroy', $flower) }}" method="POST"
+                                                class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-800"
+                                                    onclick="return confirm('Are you sure you want to delete this flower?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -200,41 +209,44 @@
                 </section>
             </main>
         </div>
-
-        <!-- Add Flower Popup -->
-        <dialog id="flowerPopup" class="rounded-lg shadow-xl p-0 w-full max-w-md">
-            <div class="bg-white rounded-lg overflow-hidden">
-                <div class="bg-green-600 text-white px-4 py-2 flex justify-between items-center">
-                    <h3 class="text-lg font-semibold" id="flowerPopupTitle">Add New Flower</h3>
-                    <button onclick="closeFlowerPopup()" class="text-white hover:text-gray-200">&times;</button>
-                </div>
-                <form id="flowerForm" class="p-4">
-                    <div class="mb-4">
-                        <label for="flowerName" class="block text-gray-700 font-bold mb-2">Name</label>
-                        <input type="text" id="flowerName" name="name" class="w-full px-3 py-2 border rounded-md"
-                            required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="flowerCategory" class="block text-gray-700 font-bold mb-2">Category</label>
-                        <select id="flowerCategory" name="category" class="w-full px-3 py-2 border rounded-md" required>
-                            <option value="">Select a category</option>
-                            <!-- Add category options here -->
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="flowerPrice" class="block text-gray-700 font-bold mb-2">Price</label>
-                        <input type="number" id="flowerPrice" name="price" step="0.01"
-                            class="w-full px-3 py-2 border rounded-md" required>
-                    </div>
-                    <div class="flex justify-end">
-                        <button type="button" onclick="closeFlowerPopup()"
-                            class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-400 transition duration-200">Cancel</button>
-                        <button type="submit"
-                            class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200">Save</button>
-                    </div>
-                </form>
+  <!-- Add Flower Popup -->
+<dialog id="flowerPopup" class="rounded-lg shadow-xl p-0 w-full max-w-md">
+    <div class="bg-white rounded-lg overflow-hidden">
+        <div class="bg-green-600 text-white px-4 py-2 flex justify-between items-center">
+            <h3 class="text-lg font-semibold" id="flowerPopupTitle">Add New Flower</h3>
+            <button onclick="closeFlowerPopup()" class="text-white hover:text-gray-200">&times;</button>
+        </div>
+        <form id="flowerForm" action="{{ route('products.store') }}" method="POST" class="p-4">
+            @csrf
+            <div class="mb-4">
+                <label for="flowerName" class="block text-gray-700 font-bold mb-2">Name</label>
+                <input type="text" id="flowerName" name="name" class="w-full px-3 py-2 border rounded-md" required>
             </div>
-        </dialog>
+            <div class="mb-4">
+                <label for="flowerCategory" class="block text-gray-700 font-bold mb-2">Category</label>
+                <select id="flowerCategory" name="category_id" class="w-full px-3 py-2 border rounded-md" required>
+                    <option value="">Select a category</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="flowerPrice" class="block text-gray-700 font-bold mb-2">Price</label>
+                <input type="number" id="flowerPrice" name="price" step="0.01" class="w-full px-3 py-2 border rounded-md" required>
+            </div>
+            <div class="mb-4">
+                <label for="flowerDescription" class="block text-gray-700 font-bold mb-2">Description</label>
+                <textarea id="flowerDescription" name="description" class="w-full px-3 py-2 border rounded-md" required></textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="button" onclick="closeFlowerPopup()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-400 transition duration-200">Cancel</button>
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200">Save</button>
+            </div>
+        </form>
+    </div>
+</dialog>
+
 
         <!-- Edit Flower Popup -->
         <dialog id="editflower" class="rounded-lg shadow-xl p-0 w-full max-w-md">
