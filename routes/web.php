@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
@@ -9,4 +10,5 @@ Route::get('/', function () {
 
 
 //categories route 
-Route::resource('dashboard', CategoryController::class);
+Route::resource('dashboard', dashboardController::class);
+Route::resource('categories', CategoryController::class);

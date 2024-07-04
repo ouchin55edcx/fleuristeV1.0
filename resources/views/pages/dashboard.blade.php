@@ -227,28 +227,26 @@
         </div>
     </dialog>
 
-    <!-- Add Category Popup -->
-    <dialog id="categoryPopup" class="rounded-lg shadow-xl p-0 w-full max-w-md">
-        <div class="bg-white rounded-lg overflow-hidden">
-            <div class="bg-blue-600 text-white px-4 py-2 flex justify-between items-center">
-                <h3 class="text-lg font-semibold" id="categoryPopupTitle">Add New Category</h3>
-                <button onclick="closeCategoryPopup()" class="text-white hover:text-gray-200">&times;</button>
-            </div>
-            <form id="categoryForm" class="p-4">
-                <div class="mb-4">
-                    <label for="categoryName" class="block text-gray-700 font-bold mb-2">Category Name</label>
-                    <input type="text" id="categoryName" name="name" class="w-full px-3 py-2 border rounded-md"
-                        required>
-                </div>
-                <div class="flex justify-end">
-                    <button type="button" onclick="closeCategoryPopup()"
-                        class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-400 transition duration-200">Cancel</button>
-                    <button type="submit"
-                        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200">Save</button>
-                </div>
-            </form>
+<!-- Add Category Popup -->
+<dialog id="categoryPopup" class="rounded-lg shadow-xl p-0 w-full max-w-md">
+    <div class="bg-white rounded-lg overflow-hidden">
+        <div class="bg-blue-600 text-white px-4 py-2 flex justify-between items-center">
+            <h3 class="text-lg font-semibold" id="categoryPopupTitle">Add New Category</h3>
+            <button onclick="closeCategoryPopup()" class="text-white hover:text-gray-200">&times;</button>
         </div>
-    </dialog>
+        <form id="categoryForm" action="{{ route('categories.store') }}" method="POST" class="p-4">
+            @csrf
+            <div class="mb-4">
+                <label for="categoryName" class="block text-gray-700 font-bold mb-2">Category Name</label>
+                <input type="text" id="categoryName" name="name" class="w-full px-3 py-2 border rounded-md" required>
+            </div>
+            <div class="flex justify-end">
+                <button type="button" onclick="closeCategoryPopup()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-400 transition duration-200">Cancel</button>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200">Save</button>
+            </div>
+        </form>
+    </div>
+</dialog>
 
     <!-- Edit Category Popup -->
     <dialog id="editcategory" class="rounded-lg shadow-xl p-0 w-full max-w-md">
