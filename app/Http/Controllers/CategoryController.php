@@ -13,8 +13,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
-     
+    
     public function store(StoreCategoryRequest $request)
     {
         try {
@@ -63,6 +62,18 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        try {
+            foreach ($category->images as $image) {
+                Storage::disk('public')->delete($image->path);
+                $image->delete();
+            }
+
+            $category->delete();
+
+            return redirect()->back()->with('success', 'Category and associated images deleted successfully.');
+        } catch (\Exception $e) {
+            Log::error('Error deleting category: ' . $e->getMessage());
+            return redirect()->back()->withErrors('An error occurred while deleting the category. Please try again.');
+        }
     }
 }
