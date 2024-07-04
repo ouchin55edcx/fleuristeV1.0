@@ -10,7 +10,7 @@ class dashboardController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::withCount('products')->get();
         $flowers = Product::with('category')->get();
         return view('pages.dashboard', compact('categories','flowers'));
     }
