@@ -49,7 +49,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-
+        $product = Product::with('images', 'category')->find($product->id);
+        
+        //dd($product);
+        return view('pages.productDetails', compact('product'));
     }
 
     /**

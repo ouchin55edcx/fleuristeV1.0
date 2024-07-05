@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\OrderController;
 
 // Public routes
 Route::get('/', [CategoryController::class, 'show'])->name('home');
@@ -33,3 +34,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
 });
+
+
+
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::post('/order/add', [OrderController::class, 'add'])->middleware('auth')->name('cart.add');;

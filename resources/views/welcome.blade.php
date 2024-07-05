@@ -100,22 +100,20 @@
                     <i class="fas fa-fire text-red-500 mr-4"></i>
                     Popular Products
                 </h2>
-                <a href="#"
+                <a href="{{ route('products.index') }}"
                     class="text-lg text-red-500 hover:text-red-600 font-medium transition duration-300 ease-in-out">
-                    SEE ALL FLOWERS
+                    SEE ALL PRODUCTS
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach ($products as $product)
-                    <div
-                        class="group bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="group bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2">
                         <div class="relative overflow-hidden">
                             <img src="{{ asset('storage/' . $product->image->path) }}"
                                 alt="{{ $product->name }}"
                                 class="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500">
-                            <div
-                                class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition duration-300">
+                            <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition duration-300">
                             </div>
                         </div>
                         <div class="p-6">
@@ -123,10 +121,10 @@
                             <p class="text-gray-600 mb-4">{{ $product->description }}</p>
                             <div class="flex justify-between items-center">
                                 <span class="text-3xl font-bold text-green-600">${{ $product->price }}</span>
-                                <button
+                                <a href="{{ route('products.show', $product->id) }}"
                                     class="bg-black text-white px-6 py-3 rounded-full hover:bg-green-800 transition duration-300 transform hover:scale-105">
-                                    Add to Cart
-                                </button>
+                                    View Details
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -134,4 +132,6 @@
             </div>
         </div>
     </section>
+
+    
 @endsection
