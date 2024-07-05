@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Support\Facades\Log;
@@ -48,8 +49,18 @@ class CategoryController extends Controller
         foreach ($categories as $category) {
             $category->image = $category->images->first();
         }
+
+
+        $products = Product::inRandomOrder()->take(4)->with(['images' => function ($query){
+            $query->inRandomOrder()->take(1);
+           }])->get();
+   
+           foreach ($products as $product) {
+               $product->image = $product->images->first();
+           }
+
     
-        return view('welcome', compact('categories'));
+        return view('welcome', compact('categories','products'));
     }
     
 

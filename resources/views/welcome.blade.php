@@ -32,7 +32,6 @@
                     <div
                         class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 ease-in-out">
 
-
                         @if ($category->image)
                             <img src="{{ asset('storage/' . $category->image->path) }}" alt="{{ $category->name }}"
                                 class="w-full h-72 object-cover group-hover:scale-110 transition duration-300 ease-in-out">
@@ -108,22 +107,22 @@
                 </a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach (['Emerald Rose Elegance', 'Verdant Daisy Delight', 'Tropical Green Orchid', 'Forest Wildflower Blend'] as $index => $product)
+                @foreach ($products as $product)
                     <div
                         class="group bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2">
                         <div class="relative overflow-hidden">
-                            <img src="https://asset.bloomnation.com/ar_252:252,c_fill,d_vendor:global:catalog:product:image.png,f_auto,fl_preserve_transparency,q_auto,w_1200/v1719872360/vendor/7591/catalog/product/2/0/20240123055455_file_65affd6f34df8_65b005acda09c.jpg"
-                                alt="{{ $product }}"
+                            <img src="{{ asset('storage/' . $product->image->path) }}"
+                                alt="{{ $product->name }}"
                                 class="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500">
                             <div
                                 class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition duration-300">
                             </div>
                         </div>
                         <div class="p-6">
-                            <h3 class="text-2xl font-semibold text-green-800 mb-3">{{ $product }}</h3>
-                            <p class="text-gray-600 mb-4">A lush arrangement to bring nature indoors</p>
+                            <h3 class="text-2xl font-semibold text-green-800 mb-3">{{ $product->name }}</h3>
+                            <p class="text-gray-600 mb-4">{{ $product->description }}</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-3xl font-bold text-green-600">${{ 39.99 + $index * 10 }}</span>
+                                <span class="text-3xl font-bold text-green-600">${{ $product->price }}</span>
                                 <button
                                     class="bg-black text-white px-6 py-3 rounded-full hover:bg-green-800 transition duration-300 transform hover:scale-105">
                                     Add to Cart
