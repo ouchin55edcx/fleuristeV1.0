@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -28,9 +29,9 @@
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="{{url('/')}}"
                         class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300">Accueil</a>
-                    <a href="{#"
-                        class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300">Bouquets</a>
                     <a href="#"
+                        class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300">Bouquets</a>
+                    <a href="{{url('panier')}}"
                         class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300 relative">
                         <i class="fas fa-shopping-cart"></i>
                         <span

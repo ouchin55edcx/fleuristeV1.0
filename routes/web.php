@@ -39,3 +39,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/order/add', [OrderController::class, 'add'])->middleware('auth')->name('cart.add');;
+
+
+Route::get('panier', [OrderController::class,'showpanier']);
+
+Route::post('/update-quantity', [OrderController::class, 'updateQuantity']);
+Route::post('/checkout', [OrderController::class, 'checkout']);
+
