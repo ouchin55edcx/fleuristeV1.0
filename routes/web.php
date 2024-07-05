@@ -8,9 +8,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 
 // Public routes
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [CategoryController::class, 'show'])->name('home');
+
 
 
 //categories route 

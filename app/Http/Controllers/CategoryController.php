@@ -39,8 +39,19 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+
+        
+        $categories = Category::inRandomOrder()->with(['images' => function ($query) {
+            $query->inRandomOrder()->take(1);
+        }])->take(4)->get();
+    
+        foreach ($categories as $category) {
+            $category->image = $category->images->first();
+        }
+    
+        return view('welcome', compact('categories'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.
