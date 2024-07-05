@@ -320,9 +320,6 @@
             </div>
         </dialog>
 
-
-
-
         <!-- Add Category Popup -->
         <dialog id="categoryPopup" class="rounded-lg shadow-xl p-0 w-full max-w-md">
             <div class="bg-white rounded-lg overflow-hidden">
