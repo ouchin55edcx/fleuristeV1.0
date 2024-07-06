@@ -29,6 +29,21 @@
                     </div>
 
                     <!-- Product Details -->
+                    <div class="md:w-1/2 p-8">
+                        <h1 class="text-3xl font-bold text-green-800 mb-4">{{ $product->name }}</h1>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="ml-2 text-gray-600">(4.5 stars, 128 reviews)</span>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            {{ $product->description }}
+                        </p>
                         <div class="md:w-1/2 p-8">
                             <h1 class="text-3xl font-bold text-green-800 mb-4">{{ $product->name }}</h1>
                             <div class="flex items-center mb-4">
@@ -49,6 +64,14 @@
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <div class="flex items-center justify-between mb-8">
                                     <span class="text-3xl font-bold text-green-600">${{ number_format($product->price, 2) }}</span>
+                                    <div class="flex items-center">
+                                        <button type="button" onclick="decrementQuantity()"
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-l hover:bg-gray-300 transition">-</button>
+                                        <input type="number" name="quantity" id="quantity" value="1"
+                                            class="w-16 text-center border-t border-b border-gray-200 py-1" />
+                                        <button type="button" onclick="incrementQuantity()"
+                                            class="bg-gray-200 text-gray-700 px-3 py-1 rounded-r hover:bg-gray-300 transition">+</button>
+                                    </div>
                                 </div>
                                 <button type="submit"
                                     class="w-full bg-black text-white py-3 px-6 rounded-full text-lg font-semibold hover:bg-green-800 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
@@ -56,6 +79,19 @@
                                 </button>
                             </form>
                         </div>
+                        
+                        <script>
+                        function incrementQuantity() {
+                            document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) + 1;
+                        }
+                        
+                        function decrementQuantity() {
+                            const currentValue = parseInt(document.getElementById('quantity').value);
+                            if (currentValue > 1) {
+                                document.getElementById('quantity').value = currentValue - 1;
+                            }
+                        }
+                        </script>
                     </div>
                 </div>
             </div>
