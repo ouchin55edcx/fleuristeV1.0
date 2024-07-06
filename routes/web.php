@@ -32,7 +32,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('dashboard', DashboardController::class)->except('index');
     Route::resource('categories', CategoryController::class);
-    Route::resource('products', ProductController::class);
 });
 
 

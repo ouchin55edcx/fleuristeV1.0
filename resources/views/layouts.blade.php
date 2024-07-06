@@ -29,7 +29,7 @@
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="{{url('/')}}"
                         class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300">Accueil</a>
-                    <a href="#"
+                    <a href="{{url('products')}}"
                         class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300">Bouquets</a>
                     <a href="{{url('panier')}}"
                         class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300 relative">
