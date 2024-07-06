@@ -45,3 +45,4 @@ Route::get('panier', [OrderController::class,'showpanier']);
 Route::post('/update-quantity', [OrderController::class, 'updateQuantity']);
 Route::post('/checkout', [OrderController::class, 'checkout']);
 
+Route::get('/search', [ProductController::class, 'search'])->name('products.search');

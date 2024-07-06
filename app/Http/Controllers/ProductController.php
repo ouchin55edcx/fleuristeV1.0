@@ -16,7 +16,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('pages.products');
+        $products = Product::with(['images' => function ($query){
+            $query->inRandomOrder()->take(1);
+           }])->get();
+   
+           foreach ($products as $product) {
+               $product->image = $product->images->first();
+           }
+        return view('pages.products',compact('products'));
     }
 
     /**
@@ -101,6 +108,20 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             Log::error('Error deleting pro$product: ' . $e->getMessage());
             return redirect()->back()->withErrors('An error occurred while deleting the pro$product. Please try again.');
+        }
+    }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        try {
+            $products = Product::where('name', 'LIKE', "%{$query}%")
+                ->get();
+
+            return response()->json($products);
+        } catch (\Exception $e) {
+            \Log::error('Search error: ' . $e->getMessage());
+            return response()->json(['error' => 'Unable to process request'], 500);
         }
     }
 }
