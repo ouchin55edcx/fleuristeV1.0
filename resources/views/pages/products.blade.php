@@ -2,6 +2,17 @@
 
 
 @section('content')
+<!-- Cart Icon -->
+<div class="fixed top-4 right-16 z-50">
+    <div class="relative">
+        <a href="{{ url('panier') }}" class="block">
+            <i class="fas fa-shopping-cart text-2xl text-green-600 hover:text-green-700 transition-colors duration-300"></i>
+            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
+                {{ $productCount }}
+            </span>
+        </a>
+    </div>
+</div>
     <!-- Hero Section with Search -->
     <header class="bg-gradient-to-br from-green-300 via-green-400 to-green-600 text-white py-24">
         <div class="container mx-auto px-4 text-center">

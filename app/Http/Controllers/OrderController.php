@@ -52,7 +52,7 @@ class OrderController extends Controller
             ->where('orders.status', 'pending')
             ->where('orders.user_id', Auth::id())
             ->groupBy('products.id', 'products.name', 'products.price')
-            ->orderBy('products.name')  // You can change this to order by any column you prefer
+            ->orderBy('products.name') 
             ->get();
     
         return view('pages.panier', compact('orders'));

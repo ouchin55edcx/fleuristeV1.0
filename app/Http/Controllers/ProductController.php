@@ -8,6 +8,9 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductController extends Controller
 {
@@ -16,14 +19,21 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['images' => function ($query){
+        $productCount = DB::table('order_product')
+        ->join('orders', 'order_product.order_id', '=', 'orders.id')
+        ->where('orders.user_id', auth()->id()) 
+        ->where('orders.status', 'pending')
+        ->sum('order_product.quantity'); 
+
+        $products = Product::with(['images' => function ($query) {
             $query->inRandomOrder()->take(1);
-           }])->get();
-   
-           foreach ($products as $product) {
-               $product->image = $product->images->first();
-           }
-        return view('pages.products',compact('products'));
+        }])->get();
+    
+        foreach ($products as $product) {
+            $product->image = $product->images->first();
+        }
+    
+        return view('pages.products', compact('products', 'productCount'));
     }
 
     /**
@@ -56,10 +66,16 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $productCount = DB::table('order_product')
+        ->join('orders', 'order_product.order_id', '=', 'orders.id')
+        ->where('orders.user_id', auth()->id()) 
+        ->where('orders.status', 'pending')
+        ->sum('order_product.quantity'); 
+
         $product = Product::with('images', 'category')->find($product->id);
         
         //dd($product);
-        return view('pages.productDetails', compact('product'));
+        return view('pages.productDetails', compact('product','productCount'));
     }
 
     /**
@@ -124,4 +140,7 @@ class ProductController extends Controller
             return response()->json(['error' => 'Unable to process request'], 500);
         }
     }
+
+
+
 }

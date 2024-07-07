@@ -17,7 +17,6 @@
 </head>
 
 <body class="flex flex-col min-h-screen bg-gray-50 overflow-x-hidden">
-
 <!-- Navbar -->
 <nav class="bg-white shadow-md fixed w-full z-20 transition-all duration-300" id="navbar">
     <div class="container mx-auto px-4">
@@ -29,10 +28,6 @@
             <div class="hidden md:flex items-center space-x-6">
                 <a href="{{ url('/') }}" class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300">Accueil</a>
                 <a href="{{ url('products') }}" class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300">Bouquets</a>
-                <a href="{{ url('panier') }}" class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300 relative">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">1</span>
-                </a>
 
                 @guest
                     <a href="{{ route('login') }}" class="nav-link text-gray-600 hover:text-green-600 transition-colors duration-300">Login</a>
@@ -56,10 +51,7 @@
     <div class="md:hidden hidden bg-white" id="mobileMenu">
         <a href="{{ url('/') }}" class="block py-2 px-4 text-gray-600 hover:bg-green-50">Accueil</a>
         <a href="{{ url('products') }}" class="block py-2 px-4 text-gray-600 hover:bg-green-50">Bouquets</a>
-        <a href="{{ url('panier') }}" class="block py-2 px-4 text-gray-600 hover:bg-green-50">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="ml-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-1">1</span>
-        </a>
+
         @guest
             <a href="{{ route('login') }}" class="block py-2 px-4 text-gray-600 hover:bg-green-50">Login</a>
             <a href="{{ route('register') }}" class="block py-2 px-4 text-gray-600 hover:bg-green-50">Register</a>
