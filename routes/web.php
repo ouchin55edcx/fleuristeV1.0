@@ -48,3 +48,6 @@ Route::post('/checkout', [OrderController::class, 'checkout']);
 Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 
 Route::get('/product-counts', [ProductController::class, 'getProductCounts']);
+
+
+Route::get('/category/{id}', [CategoryController::class, 'showProducts'])->name('category.products');

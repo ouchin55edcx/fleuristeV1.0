@@ -23,34 +23,51 @@
         </div>
     </div>
 
-    <!-- Categories Section -->
-    <section class="bg-gradient-to-b from-gray-50 to-white py-16 px-4 sm:px-6 lg:px-8">
-        <div class="container mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Explore Our Categories</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach ($categories as $category)
-                    <div
-                        class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 ease-in-out">
-
-                        @if ($category->image)
-                            <img src="{{ asset('storage/' . $category->image->path) }}" alt="{{ $category->name }}"
-                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-300 ease-in-out">
-                        @endif
-
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70 group-hover:opacity-80 transition duration-300 ease-in-out">
+<!-- Categories Section -->
+<section class="bg-gradient-to-b from-gray-50 to-white py-20 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto">
+        <h2 class="text-5xl font-extrabold text-center text-gray-800 mb-16 relative">
+            Explore Our Categories
+            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-green-500 rounded-full"></span>
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+            @foreach ($categories as $category)
+                <div class="group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 ease-in-out transform hover:-translate-y-2">
+                    @if ($category->image)
+                        <img src="{{ asset('storage/' . $category->image->path) }}" alt="{{ $category->name }}"
+                            class="w-full h-80 object-cover group-hover:scale-110 transition duration-500 ease-in-out">
+                    @else
+                        <div class="w-full h-80 bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-400 text-4xl"><i class="fas fa-image"></i></span>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 p-6">
-                            <h3
-                                class="text-white text-2xl font-semibold group-hover:text-3xl transition-all duration-300 ease-in-out">
-                                {{ $category->name }}</h3>
-                        </div>
-                        <a href="#" class="absolute inset-0 z-10" aria-label="View {{ $category->name }}"></a>
+                    @endif
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70 group-hover:opacity-90 transition duration-500 ease-in-out"></div>
+                    
+                    <div class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-6 group-hover:translate-y-0 transition duration-500 ease-in-out">
+                        <h3 class="text-white text-3xl font-bold mb-2 group-hover:text-4xl transition-all duration-500 ease-in-out">
+                            {{ $category->name }}
+                        </h3>
+                        <p class="text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+                            Discover amazing products in this category
+                        </p>
                     </div>
-                @endforeach
-            </div>
+
+                    <a href="{{ route('category.products', ['id' => $category->id]) }}" 
+                       class="absolute inset-0 z-10" 
+                       aria-label="View {{ $category->name }}">
+                    </a>
+                    
+                    <div class="absolute top-4 right-4 bg-white bg-opacity-75 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
 
 
     <!-- About Our Services Section -->

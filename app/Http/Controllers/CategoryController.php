@@ -120,4 +120,11 @@ class CategoryController extends Controller
             return redirect()->back()->withErrors('An error occurred while deleting the category. Please try again.');
         }
     }
+    public function showProducts($id)
+    {
+        $category = Category::findOrFail($id);
+        $products = $category->products()->with('images')->paginate(12);
+        
+        return view('category.products', compact('category', 'products'));
+    }
 }
