@@ -65,25 +65,20 @@
         </div>
     </main>
 
-    <!-- Feature Section -->
-    <section class="bg-green-50 py-20">
-        <!-- ... (keep the existing feature section) ... -->
-    </section>
 
     <script>
         document.getElementById('searchForm').addEventListener('submit', function(e) {
             e.preventDefault();
             searchProducts();
         });
-
+    
         function searchProducts() {
             const query = document.getElementById('searchInput').value;
-            console.log('Searching for:', query);
-
+    
             const searchResults = document.getElementById('searchResults');
             const searchResultsGrid = document.getElementById('searchResultsGrid');
             const productGrid = document.getElementById('productGrid');
-
+    
             fetch(`/search?query=${encodeURIComponent(query)}`)
                 .then(response => {
                     if (!response.ok) {
@@ -95,10 +90,14 @@
                     searchResultsGrid.innerHTML = '';
                     if (products.length > 0) {
                         products.forEach(product => {
+                            const imagePath = product.images && product.images.length > 0 
+                                ? '/storage/' + product.images[0] 
+                                : '#'; 
+                                
                             searchResultsGrid.innerHTML += `
                         <div class="group bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2">
                             <div class="relative overflow-hidden">
-                                <img src="${product.image ? '/storage/' + product.image.path : '#'}"
+                                <img src="${imagePath}"
                                     alt="${product.name}"
                                     class="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500">
                                 <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition duration-300">

@@ -33,9 +33,9 @@
             <form class="mt-8 space-y-6" action="{{ route('register') }}" method="POST">
                 @csrf
                 <div class="rounded-md shadow-sm -space-y-px">
-                    <div">
+                    <div>
                         <label for="name" class="sr-only">Nom</label>
-                        <input id="name" name="name" type="text" required class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Nom complet">
+                        <input id="name" name="name" type="text" required class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm mb-4" placeholder="Nom complet">
                     </div>
                     <div>
                         <label for="email-address" class="sr-only">Adresse e-mail</label>
@@ -45,7 +45,7 @@
                         <label for="password" class="sr-only">Mot de passe</label>
                         <input id="password" name="password" type="password" autocomplete="new-password" required class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm mb-4" placeholder="Mot de passe">
                     </div>
-                    <div >
+                    <div>
                         <label for="password_confirmation" class="sr-only">Confirmez le mot de passe</label>
                         <input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password" required class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Confirmez le mot de passe">
                     </div>

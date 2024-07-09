@@ -41,21 +41,6 @@
 
                     <!-- Product Details -->
                     <div class="md:w-1/2 p-8">
-                        <h1 class="text-3xl font-bold text-green-800 mb-4">{{ $product->name }}</h1>
-                        <div class="flex items-center mb-4">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="ml-2 text-gray-600">(4.5 stars, 128 reviews)</span>
-                        </div>
-                        <p class="text-gray-600 mb-6">
-                            {{ $product->description }}
-                        </p>
-                        <div class="md:w-1/2 p-8">
                             <h1 class="text-3xl font-bold text-green-800 mb-4">{{ $product->name }}</h1>
                             <div class="flex items-center mb-4">
                                 <div class="flex text-yellow-400">

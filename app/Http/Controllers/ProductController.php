@@ -129,11 +129,24 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-
+    
         try {
             $products = Product::where('name', 'LIKE', "%{$query}%")
-                ->get();
-
+                ->with(['images' => function($query) {
+                    $query->select('id', 'imageable_id', 'path');
+                }])
+                ->get()
+                ->map(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'description' => $product->description,
+                        'price' => $product->price,
+                        'category_id' => $product->category_id,
+                        'images' => $product->images->pluck('path'),
+                    ];
+                });
+    
             return response()->json($products);
         } catch (\Exception $e) {
             \Log::error('Search error: ' . $e->getMessage());
